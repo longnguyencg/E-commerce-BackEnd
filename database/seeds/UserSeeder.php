@@ -16,5 +16,7 @@ class UserSeeder extends Seeder
         $user->email = 'admin@gmail.com';
         $user->password = \Illuminate\Support\Facades\Hash::make('123456');
         $user->save();
+
+
     }
 }

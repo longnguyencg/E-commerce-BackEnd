@@ -21,5 +21,4 @@ class ApiLoginController extends Controller
         }
         else return response()->json(['message'=>'fail']);
     }
-
 }
