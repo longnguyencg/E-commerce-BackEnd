@@ -4,9 +4,10 @@
 namespace App\Repositories;
 
 
+use App\Interfaces\ProductRepositoryInterface;
 use App\Product;
 
-class ProductRepository
+class ProductRepository implements ProductRepositoryInterface
 {
 
     public function getAll()
@@ -16,12 +17,12 @@ class ProductRepository
 
     public function findById($id)
     {
-        return Product::findOrFail($id);
+        return Product::find($id);
     }
 
-    public function store($request)
+    public function store($product)
     {
-        return Product::create($request->all());
+        $product->save();
     }
 
     public function destroy($product)

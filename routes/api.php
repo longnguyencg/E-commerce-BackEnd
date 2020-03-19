@@ -19,6 +19,6 @@ Route::post('/login','ApiLoginController@login');
 Route::prefix('/products')->group(function () {
     Route::get('/', 'ProductController@index');
     Route::post('/', 'ProductController@store');
-    Route::put('/{id}', 'ProductController@store');
+    Route::put('/{id}', 'ProductController@update');
     Route::delete('/{id}', 'ProductController@destroy');
 });

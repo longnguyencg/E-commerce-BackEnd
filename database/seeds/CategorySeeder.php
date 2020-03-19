@@ -14,5 +14,13 @@ class CategorySeeder extends Seeder
         $category = new \App\Category();
         $category->name = 'Technology';
         $category->save();
+
+        $category = new \App\Category();
+        $category->name = 'Excercise';
+        $category->save();
+
+        $category = new \App\Category();
+        $category->name = 'Math';
+        $category->save();
     }
 }

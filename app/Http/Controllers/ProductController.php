@@ -5,14 +5,14 @@ namespace App\Http\Controllers;
 
 
 use App\Http\Requests\StoreProductRequest;
-use App\Services\ProductService;
+use App\Interfaces\ProductServiceInterface;
 use Illuminate\Http\Request;
 
 class ProductController
 {
     private $productService;
 
-    public function __construct(ProductService $productService)
+    public function __construct(ProductServiceInterface $productService)
     {
         $this->productService = $productService;
     }
@@ -22,27 +22,22 @@ class ProductController
         return $this->productService->getAll();
     }
 
-    public function findById()
-    {
-
-    }
-
-    public function store(Request $request)
+    public function store(StoreProductRequest $request)
     {
         $this->productService->store($request);
-        return response()->json(['success' => 'Tạo thành công'], 200);
+        return response()->json(['success' => 'Created successful'], 200);
     }
 
-    public function update(Request $request, $id)
+    public function update(StoreProductRequest $request, $id)
     {
         $this->productService->update($request, $id);
-        return response()->json(['success' => 'Update successful',200]);
+        return response()->json(['success' => 'Updated successful',200]);
     }
 
     public function destroy($id)
     {
         if ($this->productService->destroy($id)) {
-            return response()->json(['success' => 'Delete successful',200]);
+            return response()->json(['success' => 'Deleted successful',200]);
         }
         return response()->json(['error' => 'Failure delete'], 404);
     }

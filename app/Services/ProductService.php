@@ -4,14 +4,16 @@
 namespace App\Services;
 
 
+use App\Interfaces\ProductRepositoryInterface;
+use App\Interfaces\ProductServiceInterface;
 use App\Product;
 use App\Repositories\ProductRepository;
 
-class ProductService
+class ProductService implements ProductServiceInterface
 {
     private $productRepo;
 
-    public function __construct(ProductRepository $productRepository)
+    public function __construct(ProductRepositoryInterface $productRepository)
     {
         $this->productRepo = $productRepository;
     }
@@ -28,7 +30,9 @@ class ProductService
 
     public function store($request)
     {
-        $this->productRepo->store($request);
+        $product = new Product();
+        $product->fill($request->all());
+        $this->productRepo->store($product);
     }
 
     public function update($request, $id)
