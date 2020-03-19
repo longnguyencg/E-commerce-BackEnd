@@ -15,3 +15,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::post('/login','ApiLoginController@login');
+
+Route::prefix('/products')->group(function () {
+    Route::get('/', 'ProductController@index');
+    Route::post('/', 'ProductController@store');
+    Route::put('/{id}', 'ProductController@store');
+    Route::delete('/{id}', 'ProductController@destroy');
+});
