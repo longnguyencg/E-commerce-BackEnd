@@ -46,4 +46,9 @@ class ProductController
     {
 
     }
+
+    public function getByCategory($category_id)
+    {
+        return $this->productService->getByCategory($category_id);
+    }
 }

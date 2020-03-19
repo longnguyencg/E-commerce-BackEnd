@@ -50,4 +50,9 @@ class ProductService implements ProductServiceInterface
         }
         return false;
     }
+
+    public function getByCategory($category_id)
+    {
+        return $this->productRepo->getByCategory($category_id);
+    }
 }

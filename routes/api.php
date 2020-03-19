@@ -21,4 +21,5 @@ Route::prefix('/products')->group(function () {
     Route::post('/', 'ProductController@store');
     Route::put('/{id}', 'ProductController@update');
     Route::delete('/{id}', 'ProductController@destroy');
+    Route::get('/category/{category_id}', 'ProductController@getByCategory');
 });

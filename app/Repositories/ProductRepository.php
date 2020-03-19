@@ -34,4 +34,10 @@ class ProductRepository implements ProductRepositoryInterface
     {
         $product->save();
     }
+
+    public function getByCategory($category_id)
+    {
+        $product = new Product();
+        return $product->where('category_id','=',"$category_id")->get();
+    }
 }
