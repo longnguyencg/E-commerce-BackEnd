@@ -15,3 +15,5 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::post('/login','ApiLoginController@login');
+Route::post('/register','UserController@register');
+Route::get('/{id}','UserController@findById');
