@@ -35,6 +35,15 @@ class ProductService implements ProductServiceInterface
         $this->productRepo->store($product);
     }
 
+    public function show($id)
+    {
+        if ($product = $this->productRepo->findById($id)) {
+            return $product;
+        }
+
+        return false;
+    }
+
     public function update($request, $id)
     {
         $product = $this->productRepo->findById($id);
@@ -54,5 +63,15 @@ class ProductService implements ProductServiceInterface
     public function getByCategory($category_id)
     {
         return $this->productRepo->getByCategory($category_id);
+    }
+
+    public function hidden($request, $id)
+    {
+        if ($product = $this->productRepo->findById($id)) {
+            $product->display = $request->display ? 1 : 0;
+            $this->productRepo->store($product);
+            return true;
+        };
+        return false;
     }
 }
