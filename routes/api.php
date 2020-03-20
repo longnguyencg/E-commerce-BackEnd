@@ -15,5 +15,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::post('/login','ApiLoginController@login');
+
+Route::prefix('/products')->group(function () {
+    Route::get('/', 'ProductController@index');
+    Route::post('/', 'ProductController@store');
+    Route::put('/{id}', 'ProductController@update');
+    Route::delete('/{id}', 'ProductController@destroy');
+    Route::get('/category/{category_id}', 'ProductController@getByCategory');
+});
 Route::post('/register','UserController@register');
 Route::get('/{id}','UserController@findById');
