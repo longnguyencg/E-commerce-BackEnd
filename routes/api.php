@@ -18,8 +18,10 @@ Route::post('/login','ApiLoginController@login');
 
 Route::prefix('/products')->group(function () {
     Route::get('/', 'ProductController@index');
+    Route::get('/{id}', 'ProductController@show');
     Route::post('/', 'ProductController@store');
     Route::put('/{id}', 'ProductController@update');
+    Route::patch('/{id}', 'ProductController@hidden');
     Route::delete('/{id}', 'ProductController@destroy');
     Route::get('/category/{category_id}', 'ProductController@getByCategory');
 });
