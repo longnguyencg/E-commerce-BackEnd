@@ -23,3 +23,5 @@ Route::prefix('/products')->group(function () {
     Route::delete('/{id}', 'ProductController@destroy');
     Route::get('/category/{category_id}', 'ProductController@getByCategory');
 });
+Route::post('/register','UserController@register');
+Route::get('/{id}','UserController@findById');
