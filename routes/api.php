@@ -28,3 +28,4 @@ Route::prefix('/products')->group(function () {
 
 Route::post('/register','UserController@register');
 Route::get('/{id}','UserController@findById');
+
