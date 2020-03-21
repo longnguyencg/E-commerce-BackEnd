@@ -26,6 +26,16 @@ Route::prefix('/products')->group(function () {
     Route::get('/category/{category_id}', 'ProductController@getByCategory');
 });
 
+Route::middleware(['sessions'])->prefix('/cart')->group(function () {
+    Route::get('', 'CartController@index');
+    Route::post('/{id}','CartController@add');
+    Route::patch('/{id}','CartController@update');
+    Route::delete('/{id}','CartController@delete');
+    Route::post('/coupon/{coupon}', 'CartController@updateCoupon');
+    Route::post('/shipping/{id}', 'CartController@shipping');
+    Route::delete('','CartController@destroy');
+});
+
 Route::post('/register','UserController@register');
 Route::get('/{id}','UserController@findById');
 

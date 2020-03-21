@@ -8,10 +8,11 @@ class Cart
 {
     public $listItem = [];
     public $totalTypeOfProduct = 0;
-    public $coupon = 0;
+    public $coupon = [];
+    public $shipping = 0;
     public $totalPrice = 0;
 
-    public function __construct($oldCart = null)
+    public function __construct($oldCart)
     {
         if ($oldCart) {
             $this->listItem = $oldCart->listItem;
@@ -23,9 +24,9 @@ class Cart
 
     public function add($idProduct)
     {
-        if (!$this->listItem[$idProduct]) {
+        if (!key_exists("$idProduct", $this->listItem)) {
             $cartItem = new CartItem(Product::find($idProduct),1);
-            $this->listItem[$idProduct] = $cartItem;
+            $this->listItem["$idProduct"] = $cartItem;
             $this->totalTypeOfProduct++;
             $this->totalPrice += $cartItem->totalPrice;
         }
@@ -33,21 +34,36 @@ class Cart
 
     public function update($idProduct, $quantity)
     {
-        if ($this->listItem[$idProduct]) {
+        if (key_exists("$idProduct", $this->listItem)) {
             $cartItem = new CartItem(Product::find($idProduct),$quantity);
-            $this->totalPrice += $cartItem->totalPrice - $this->listItem[$idProduct]->totalPrice;
-            $this->listItem[$idProduct] = $cartItem;
+            $this->totalPrice += $cartItem->totalPrice - $this->listItem["$idProduct"]->totalPrice;
+            $this->listItem["$idProduct"] = $cartItem;
         }
     }
 
     public function updateCoupon($coupon)
     {
-        $this->coupon = $coupon;
-        $this->totalPrice *= (100 - $this->coupon)/100;
+        if ($coupon = Coupon::where('name','=',$coupon)->first()) {
+            array_push($this->coupon,$coupon->id);
+            if ($coupon->type === "%") {
+                $this->totalPrice *= (100 - $coupon->amount)/100;
+            } else {
+                $this->totalPrice -= $coupon->amount;
+            }
+        }
+    }
+
+    public function updateShip($id)
+    {
+        if ($shipping = Shipping::find($id)) {
+            $this->shipping = $shipping->amount;
+            $this->totalPrice -= $this->shipping;
+        }
     }
 
     public function delete($id)
     {
-        $this->listItem[$id] = null;
+        $this->listItem["$id"] = null;
+        $this->totalTypeOfProduct--;
     }
 }
