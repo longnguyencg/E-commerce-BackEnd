@@ -26,6 +26,5 @@ Route::prefix('/products')->group(function () {
     Route::get('/category/{category_id}', 'ProductController@getByCategory');
 });
 
-Route::prefix('/cart')->group(function () {
-    Route::get('',);
-});
+Route::post('/register','UserController@register');
+Route::get('/{id}','UserController@findById');
