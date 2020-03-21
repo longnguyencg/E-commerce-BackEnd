@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Cart;
 use Illuminate\Http\Request;
+use function Psy\sh;
 
 class CartController extends Controller
 {
@@ -16,6 +17,7 @@ class CartController extends Controller
 
     public function index()
     {
+        dd($this->cart);
         return $this->cart;
     }
 
@@ -34,6 +36,12 @@ class CartController extends Controller
 
     public function updateCoupon($coupon) {
         $this->cart->updateCoupon($coupon);
+        session()->put('cart', $this->cart);
+    }
+
+    public function shipping($id)
+    {
+        $this->cart->updateShip($id);
         session()->put('cart', $this->cart);
     }
 

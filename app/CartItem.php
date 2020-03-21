@@ -14,6 +14,6 @@ class CartItem
     {
         $this->product = $product;
         $this->totalPrice = $product->price * $quantity;
-        $this->quantity = $product->quantity;
+        $this->quantity = $quantity;
     }
 }
