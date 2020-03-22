@@ -36,6 +36,14 @@ Route::middleware(['sessions'])->prefix('/cart')->group(function () {
     Route::delete('','CartController@destroy');
 });
 
+Route::prefix('/comments')->group(function () {
+    Route::get('', 'CommentController@index');
+    Route::post('', 'CommentController@add');
+    Route::patch('', 'CommentController@update');
+//    Route::delete('/', 'CommentController@destroy');
+    Route::delete('/{id}', 'CommentController@delete');
+});
+
 Route::post('/register','UserController@register');
 Route::get('/{id}','UserController@findById');
 
