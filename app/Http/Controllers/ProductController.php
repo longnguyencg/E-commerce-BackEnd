@@ -19,7 +19,8 @@ class ProductController
 
     public function index()
     {
-        return $this->productService->getAll();
+        $products =$this->productService->getAll();
+        return response()->json($products);
     }
 
     public function store(StoreProductRequest $request)

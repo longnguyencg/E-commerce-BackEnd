@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::post('/login','ApiLoginController@login');
+Route::get('/logout','ApiLoginController@logout');
 
 Route::prefix('/products')->group(function () {
     Route::get('/', 'ProductController@index');
