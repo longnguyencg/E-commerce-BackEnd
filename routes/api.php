@@ -44,6 +44,13 @@ Route::prefix('/comments')->group(function () {
     Route::delete('/{id}', 'CommentController@delete');
 });
 
+Route::prefix('/votes')->group(function () {
+   Route::get('', 'VoteController@index');
+   Route::get('/{user_id}', 'VoteController@getVoteByUser');
+   Route::patch('', 'VoteController@update');
+   Route::post('', 'VoteController@add');
+});
+
 Route::post('/register','UserController@register');
 Route::get('/{id}','UserController@findById');
 

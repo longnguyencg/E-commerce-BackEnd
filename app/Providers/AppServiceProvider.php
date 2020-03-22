@@ -6,10 +6,14 @@ use App\Interfaces\CommentRepositoryInterface;
 use App\Interfaces\CommentServiceInterface;
 use App\Interfaces\ProductRepositoryInterface;
 use App\Interfaces\ProductServiceInterface;
+use App\Interfaces\VoteRepositoryInterface;
+use App\Interfaces\VoteServiceInterface;
 use App\Repositories\CommentRepository;
 use App\Repositories\ProductRepository;
+use App\Repositories\VoteRepository;
 use App\Services\CommentService;
 use App\Services\ProductService;
+use App\Services\VoteService;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -25,6 +29,8 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(ProductServiceInterface::class, ProductService::class);
         $this->app->singleton(CommentServiceInterface::class, CommentService::class);
         $this->app->singleton(CommentRepositoryInterface::class, CommentRepository::class);
+        $this->app->singleton(VoteRepositoryInterface::class, VoteRepository::class);
+        $this->app->singleton(VoteServiceInterface::class, VoteService::class);
     }
 
     /**
