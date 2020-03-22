@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\AddVoteRequest;
+use App\Http\Requests\UpdateVoteRequest;
 use App\Interfaces\VoteServiceInterface;
 use Illuminate\Http\Request;
 
@@ -31,7 +32,7 @@ class VoteController extends Controller
         return response()->json(['success' => 'Vote successful'],200);
     }
 
-    public function update(Request $request)
+    public function update(UpdateVoteRequest $request)
     {
         $this->voteService->update($request, $request->id);
         return response()->json(['success' => 'update successful'],200);
