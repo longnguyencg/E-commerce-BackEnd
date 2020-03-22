@@ -3,12 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Cart;
+use App\Http\Requests\UpdateCartRequest;
 use Illuminate\Http\Request;
 use function Psy\sh;
 
 class CartController extends Controller
 {
-    protected $cart;
+    public $cart;
 
     public function __construct()
     {
@@ -28,10 +29,12 @@ class CartController extends Controller
     }
 
     //Request $request
-    public function update($idProduct, $quantity)
+    public function update(UpdateCartRequest $request)
     {
-        $this->cart->update($idProduct, $quantity);
-        session()->put('cart', $this->cart);
+        if ($request->id && $request->quantity) {
+            $this->cart->update($request->id, $request->quantity);
+            session()->put('cart', $this->cart);
+        }
     }
 
     public function updateCoupon($coupon) {

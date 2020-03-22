@@ -63,7 +63,8 @@ class Cart
 
     public function delete($id)
     {
-        $this->listItem["$id"] = null;
+        $this->totalPrice -= $this->listItem["$id"]->totalPrice;
         $this->totalTypeOfProduct--;
+        unset($this->listItem["$id"]);
     }
 }
