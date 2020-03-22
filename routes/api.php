@@ -29,7 +29,7 @@ Route::prefix('/products')->group(function () {
 Route::middleware(['sessions'])->prefix('/cart')->group(function () {
     Route::get('', 'CartController@index');
     Route::post('/{id}','CartController@add');
-    Route::patch('/{id}','CartController@update');
+    Route::patch('','CartController@update');
     Route::delete('/{id}','CartController@delete');
     Route::post('/coupon/{coupon}', 'CartController@updateCoupon');
     Route::post('/shipping/{id}', 'CartController@shipping');
