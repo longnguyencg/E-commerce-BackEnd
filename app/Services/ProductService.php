@@ -48,7 +48,7 @@ class ProductService implements ProductServiceInterface
     {
         $product = $this->productRepo->findById($id);
         $product->update($request->all());
-        $this->productRepo->update($product);
+        return $this->productRepo->update($product);
     }
 
     public function destroy($id)
@@ -68,7 +68,7 @@ class ProductService implements ProductServiceInterface
     public function hidden($request, $id)
     {
         if ($product = $this->productRepo->findById($id)) {
-            $product->display = $request->display ? 1 : 0;
+            $product->display = $request->display == true ? 1 : 0;
             $this->productRepo->store($product);
             return true;
         };
