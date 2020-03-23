@@ -68,8 +68,8 @@ class ProductService implements ProductServiceInterface
     public function hidden($request, $id)
     {
         if ($product = $this->productRepo->findById($id)) {
-            $product->display = $request->display == true ? 1 : 0;
-            $this->productRepo->store($product);
+            $product->display = $request->display;
+            $this->productRepo->update($product);
             return true;
         };
         return false;
