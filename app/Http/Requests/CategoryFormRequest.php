@@ -8,7 +8,7 @@ use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Validation\ValidationException;
 
-class StoreProductRequest extends FormRequest
+class CategoryFormRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -28,9 +28,7 @@ class StoreProductRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|min:4|max:255',
-            'price' => 'required',
-            'category_id' => 'required|exists:categories,id'
+            'name' => 'required|unique:categories,name',
         ];
     }
 
@@ -43,5 +41,4 @@ class StoreProductRequest extends FormRequest
                 'status_code' => 422,
             ], JsonResponse::HTTP_UNPROCESSABLE_ENTITY));
     }
-
 }

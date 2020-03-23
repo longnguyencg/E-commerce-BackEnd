@@ -51,6 +51,14 @@ Route::prefix('/votes')->group(function () {
    Route::post('', 'VoteController@add');
 });
 
+Route::prefix('/categories')->group(function () {
+    Route::get('', 'CategoryController@index');
+    Route::get('/{id}', 'CategoryController@show');
+    Route::post('', 'CategoryController@add');
+    Route::patch('', 'CategoryController@update');
+    Route::delete('/{id}', 'CategoryController@destroy');
+});
+
 Route::post('/register','UserController@register');
 Route::get('/{id}','UserController@findById');
 

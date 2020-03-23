@@ -39,8 +39,11 @@ class ProductController
 
     public function update(StoreProductRequest $request, $id)
     {
-        $this->productService->update($request, $id);
-        return response()->json(['success' => 'Updated successful'] , 200);
+        if ($this->productService->update($request, $id)) {
+            return response()->json(['success' => 'Updated successful'] , 200);
+        };
+
+        return response()->json(['error' => 'Something wrong'] , 404);
     }
 
     public function destroy($id)
