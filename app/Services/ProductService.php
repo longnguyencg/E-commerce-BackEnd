@@ -48,7 +48,7 @@ class ProductService implements ProductServiceInterface
     {
         $product = $this->productRepo->findById($id);
         $product->update($request->all());
-        $this->productRepo->update($product);
+        return $this->productRepo->update($product);
     }
 
     public function destroy($id)

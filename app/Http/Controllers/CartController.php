@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Cart;
 use App\Http\Requests\UpdateCartRequest;
+use App\test;
 use Illuminate\Http\Request;
+use phpDocumentor\Reflection\Types\Object_;
 use function Psy\sh;
 
 class CartController extends Controller
@@ -18,8 +20,7 @@ class CartController extends Controller
 
     public function index()
     {
-        dd($this->cart);
-        return $this->cart;
+        return array($this->cart);
     }
 
     public function add($idProduct)
@@ -42,9 +43,9 @@ class CartController extends Controller
         session()->put('cart', $this->cart);
     }
 
-    public function shipping($id)
+    public function shipping($idShipping)
     {
-        $this->cart->updateShip($id);
+        $this->cart->updateShip($idShipping);
         session()->put('cart', $this->cart);
     }
 

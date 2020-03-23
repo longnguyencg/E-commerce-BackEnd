@@ -22,17 +22,17 @@ class ProductRepository implements ProductRepositoryInterface
 
     public function store($product)
     {
-        $product->save();
+        return $product->save();
     }
 
     public function destroy($product)
     {
-        $product->delete();
+        return $product->delete();
     }
 
     public function update($product)
     {
-        $product->save();
+        return $product->save();
     }
 
     public function getByCategory($category_id)
