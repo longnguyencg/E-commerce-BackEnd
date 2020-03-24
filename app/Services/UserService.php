@@ -5,7 +5,7 @@ namespace App\Services;
 
 
 use App\Interfaces\ServiceInterface;
-use App\Repository\UserRepository;
+use App\Repositories\UserRepository;
 use App\User;
 use Illuminate\Support\Facades\Hash;
 

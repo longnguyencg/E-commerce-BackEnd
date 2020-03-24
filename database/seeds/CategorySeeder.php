@@ -22,5 +22,13 @@ class CategorySeeder extends Seeder
         $category = new \App\Category();
         $category->name = 'Math';
         $category->save();
+
+        $category = new \App\Category();
+        $category->name = 'Physical';
+        $category->save();
+
+        $category = new \App\Category();
+        $category->name = 'Art';
+        $category->save();
     }
 }
