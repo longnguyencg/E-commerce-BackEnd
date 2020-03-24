@@ -51,6 +51,6 @@ class CategoryController extends Controller
         if ($category = $this->categoryService->destroy($id)) {
             return response()->json(['success' => 'Deleted successful'], 200);
         }
-        return response()->json(['error' => 'No category find'], 404);
+        return response()->json(['error' => 'Something wrong']);
     }
 }
