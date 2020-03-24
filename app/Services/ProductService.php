@@ -25,7 +25,12 @@ class ProductService implements ProductServiceInterface
 
     public function getAll()
     {
-        return $this->productRepo->getAll();
+        $result = [];
+        $products = $this->productRepo->getAll();
+        foreach ($products as $product) {
+            array_push($result,  array($product, $product->categories));
+        }
+        return $result;
     }
 
     public function store($request)
@@ -33,6 +38,7 @@ class ProductService implements ProductServiceInterface
         $product = new Product();
         $product->fill($request->all());
         $this->productRepo->store($product);
+        $product->categories()->attach($request->categories);
     }
 
     public function show($id)
@@ -48,29 +54,33 @@ class ProductService implements ProductServiceInterface
     {
         $product = $this->productRepo->findById($id);
         $product->update($request->all());
-        return $this->productRepo->update($product);
+        $this->productRepo->update($product);
+        return $product->categories()->sync($request->categories);
     }
 
     public function destroy($id)
     {
         if ($product = $this->productRepo->findById($id)) {
-            $this->productRepo->destroy($product);
-            return true;
+            return $this->productRepo->destroy($product);
         }
         return false;
     }
 
     public function getByCategory($category_id)
     {
-        return $this->productRepo->getByCategory($category_id);
+        $result = [];
+        $products = $this->productRepo->getByCategory($category_id);
+        foreach ($products as $product) {
+            array_push($result, array($product, $product->categories));
+        }
+        return $result;
     }
 
     public function hidden($request, $id)
     {
         if ($product = $this->productRepo->findById($id)) {
-            $product->display = $request->display;
-            $this->productRepo->update($product);
-            return true;
+            $product->display = $request->display == true ? 1 : 0;
+            return $this->productRepo->store($product);
         };
         return false;
     }

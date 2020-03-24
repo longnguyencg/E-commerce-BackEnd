@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Cart;
+use App\Coupon;
 use App\Http\Requests\UpdateCartRequest;
-use App\test;
+use App\Product;
+use App\Shipping;
 use Illuminate\Http\Request;
-use phpDocumentor\Reflection\Types\Object_;
-use function Psy\sh;
 
 class CartController extends Controller
 {
@@ -20,43 +20,60 @@ class CartController extends Controller
 
     public function index()
     {
-        return array($this->cart);
+        return response()->json($this->cart);
     }
 
     public function add($idProduct)
     {
-        $this->cart->add($idProduct);
-        session()->put('cart', $this->cart);
+        if (Product::find($idProduct)) {
+            $this->cart->add($idProduct);
+            session()->put('cart', $this->cart);
+            return response()->json(['success' => 'Add cart successful'], 200);
+        }
+
+        return response()->json(['error' => 'Id product not exists']);
     }
 
     //Request $request
     public function update(UpdateCartRequest $request)
     {
-        if ($request->id && $request->quantity) {
-            $this->cart->update($request->id, $request->quantity);
-            session()->put('cart', $this->cart);
-        }
+        $message = $this->cart->update($request->id, $request->quantity);
+        session()->put('cart', $this->cart);
+
+        return response()->json($message);
     }
 
-    public function updateCoupon($coupon) {
-        $this->cart->updateCoupon($coupon);
+    public function updateCoupon($coupon)
+    {
+        $message = $this->cart->updateCoupon($coupon);
         session()->put('cart', $this->cart);
+
+        return response()->json($message);
     }
 
     public function shipping($idShipping)
     {
-        $this->cart->updateShip($idShipping);
+        $message = $this->cart->updateShip($idShipping);
         session()->put('cart', $this->cart);
+
+        return response()->json($message);
     }
 
     public function delete($id)
     {
-        $this->cart->delete($id);
-        session()->put('cart', $this->cart);
+        if (key_exists("$id", $this->cart->listItem)) {
+            $this->cart->delete($id);
+            session()->put('cart', $this->cart);
+
+            return response()->json(['success' => 'Deleted'], 200);
+        }
+
+        return response()->json(['error' => 'The product not exists in cart']);
     }
 
     public function destroy()
     {
         session()->forget('cart');
+        return response()->json(['success' => 'Cleared cart'], 200);
     }
 }
