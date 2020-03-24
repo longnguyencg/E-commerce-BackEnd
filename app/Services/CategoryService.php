@@ -40,6 +40,7 @@ class CategoryService implements CategoryServiceInterface
     public function destroy($id)
     {
         if ($category = $this->categoryRepo->show($id)) {
+            $category->products()->detach();
             return $this->categoryRepo->destroy($category);
         }
         return false;
