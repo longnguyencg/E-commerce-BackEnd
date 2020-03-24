@@ -26,4 +26,14 @@ class UserService implements ServiceInterface
     public function findById($id) {
         return $this->userRepo->findById($id);
     }
+
+    public function update($request, $id)
+    {
+        // TODO: Implement update() method.
+    }
+
+    public function destroy($id)
+    {
+        // TODO: Implement destroy() method.
+    }
 }

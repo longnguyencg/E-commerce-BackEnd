@@ -30,7 +30,7 @@ class StoreProductRequest extends FormRequest
         return [
             'name' => 'required|min:4|max:255',
             'price' => 'required',
-            'category_id' => 'required|exists:categories,id'
+            'categories' => 'required|exists:categories,id'
         ];
     }
 

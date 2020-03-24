@@ -25,7 +25,7 @@ class ProductController
     public function show($id)
     {
         if ($product = $this->productService->show($id)) {
-            return $product;
+            return array('product' => $product, 'categories' => $product->categories);
         }
 
         return response()->json(['error' => 'No data found'], 404);
@@ -67,6 +67,6 @@ class ProductController
 
     public function getByCategory($category_id)
     {
-        return $this->productService->getByCategory($category_id);
+         return $this->productService->getByCategory($category_id);
     }
 }

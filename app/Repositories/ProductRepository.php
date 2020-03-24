@@ -4,6 +4,7 @@
 namespace App\Repositories;
 
 
+use App\Category;
 use App\Interfaces\ProductRepositoryInterface;
 use App\Product;
 
@@ -37,7 +38,7 @@ class ProductRepository implements ProductRepositoryInterface
 
     public function getByCategory($category_id)
     {
-        $product = new Product();
-        return $product->where('category_id','=',"$category_id")->get();
+        $category = Category::find($category_id);
+        return $category->products()->get();
     }
 }

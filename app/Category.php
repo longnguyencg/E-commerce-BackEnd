@@ -11,15 +11,15 @@ class Category extends Model
 
     public function products()
     {
-        return $this->hasMany('App\Product');
+        return $this->belongsToMany('App\Product')->withTimestamps();
     }
 
-    public static function boot() {
-        parent::boot();
-
-        static::deleting(function($category) { // before delete() method call this
-            $category->products()->delete();
-            // do the rest of the cleanup...
-        });
-    }
+//    public static function boot() {
+//        parent::boot();
+//
+//        static::deleting(function($category) { // before delete() method call this
+//            $category->products()->delete();
+//            // do the rest of the cleanup...
+//        });
+//    }
 }
