@@ -61,6 +61,14 @@ Route::prefix('/categories')->group(function () {
     Route::delete('/{id}', 'CategoryController@destroy');
 });
 
+Route::middleware(['sessions'])->prefix('/checkout')->group(function () {
+    Route::get('', 'CheckOutController@index');
+    Route::get('/{id}', 'CheckOutController@show');
+    Route::post('', 'CheckOutController@add');
+    Route::patch('', 'CheckOutController@update');
+    Route::delete('/{id}', 'CheckOutController@destroy');
+});
+
 Route::post('/register','UserController@register');
 Route::get('/{id}','UserController@findById');
 

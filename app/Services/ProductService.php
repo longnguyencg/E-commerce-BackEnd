@@ -61,6 +61,7 @@ class ProductService implements ProductServiceInterface
     public function destroy($id)
     {
         if ($product = $this->productRepo->findById($id)) {
+            $product->categories()->detach();
             return $this->productRepo->destroy($product);
         }
         return false;
