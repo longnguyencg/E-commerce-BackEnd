@@ -49,7 +49,7 @@ Route::prefix('/comments')->group(function () {
 
 Route::prefix('/votes')->group(function () {
    Route::get('', 'VoteController@index');
-   Route::get('/users/{user_id}', 'VoteController@getVoteByUser');
+   Route::get('/users/{user_id}/products/{product_id}', 'VoteController@getVoteByUser');
    Route::get('/products/{product_id}', 'VoteController@getVoteByProduct');
    Route::patch('', 'VoteController@update');
    Route::post('', 'VoteController@add');

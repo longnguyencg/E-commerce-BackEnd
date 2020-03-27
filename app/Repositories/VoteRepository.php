@@ -17,9 +17,9 @@ class VoteRepository implements VoteRepositoryInterface
         return array((['count'=>$count, 'voteRate'=>$voteRate]));
     }
 
-    public function getVoteByUser($id)
+    public function getVoteByUser($user_id, $product_id)
     {
-        return Vote::where('user_id','=',"$id")->first();
+        return Vote::where('user_id','=',"$user_id")->where('product_id','=',"$product_id")->first();
     }
 
     public function getVoteByProduct($product_id)
