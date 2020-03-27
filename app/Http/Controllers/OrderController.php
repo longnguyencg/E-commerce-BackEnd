@@ -30,6 +30,8 @@ class OrderController extends Controller
         $order_id = $this->orderService->store($request->totalPrice, $customer_id);
         $cart = new Cart($request->session()->get('cart'));
         $this->orderDtlCtrl->add($cart, $order_id);
+        $notification = new NotificationController();
+        $notification->add($order_id);
     }
 
     public function update($request, $id = null)
@@ -40,5 +42,14 @@ class OrderController extends Controller
     public function destroy($id)
     {
         // TODO: Implement destroy() method.
+    }
+
+    public function updateStatus(Request $request, $id)
+    {
+        if ($this->orderService->updateStatus($request, $id)) {
+            return response()->json(['success' => 'Updated status successful'],200);
+        };
+
+        return response()->json(['error' => 'Order not found'],404);
     }
 }

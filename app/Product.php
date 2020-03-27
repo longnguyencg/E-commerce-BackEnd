@@ -13,4 +13,19 @@ class Product extends Model
     {
         return $this->belongsToMany('App\Category')->withTimestamps();
     }
+
+    public function productImages()
+    {
+        return $this->hasMany('App\ProductImage');
+    }
+
+    public static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($product) { // before delete() method call this
+            $product->productImages()->delete();
+            // do the rest of the cleanup...
+        });
+    }
 }

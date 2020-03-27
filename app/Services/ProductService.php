@@ -7,6 +7,7 @@ namespace App\Services;
 use App\Interfaces\ProductRepositoryInterface;
 use App\Interfaces\ProductServiceInterface;
 use App\Product;
+use App\ProductImage;
 use App\Repositories\ProductRepository;
 
 class ProductService implements ProductServiceInterface
@@ -39,6 +40,12 @@ class ProductService implements ProductServiceInterface
         $product->fill($request->all());
         $this->productRepo->store($product);
         $product->categories()->attach($request->categories);
+        foreach ($request->images as $name) {
+            $image = new ProductImage();
+            $image->name = $name;
+            $image->product_id = $product->id;
+            $image->save();
+        }
     }
 
     public function show($id)
@@ -55,6 +62,14 @@ class ProductService implements ProductServiceInterface
         $product = $this->productRepo->findById($id);
         $product->update($request->all());
         $this->productRepo->update($product);
+        $images = $product->productImages()->delete();
+        foreach ($request->images as $name) {
+            $image = new ProductImage();
+            $image->name = $name;
+            $image->product_id = $product->id;
+            $image->save();
+        }
+
         return $product->categories()->sync($request->categories);
     }
 
