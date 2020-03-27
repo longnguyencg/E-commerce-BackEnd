@@ -28,9 +28,9 @@ class VoteService implements VoteServiceInterface
         return $this->voteRepo->store($vote);
     }
 
-    public function getVoteByUser($id)
+    public function getVoteByUser($user_id, $product_id)
     {
-        return $this->voteRepo->getVoteByUSer($id);
+        return $this->voteRepo->getVoteByUSer($user_id, $product_id);
     }
 
     public function getVoteByProduct($product_id)
