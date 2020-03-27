@@ -80,6 +80,14 @@ Route::get('/notifications', function () {
     Route::delete('/', 'NotificationController@destroyAll');
 });
 
+Route::prefix('/users')->group(function () {
+    Route::prefix('/detail')->group(function () {
+        Route::get('/{user_id}', 'DetailUserController@index');
+        Route::post('', 'DetailUserController@add');
+        Route::put('', 'DetailUserController@update');
+    });
+});
+
 Route::post('/register','UserController@register');
 Route::get('/{id}','UserController@findById');
 
