@@ -5,9 +5,15 @@ namespace App\Repositories;
 
 
 use App\Interfaces\OrderRepositoryInterface;
+use App\Order;
 
 class OrderRepository implements OrderRepositoryInterface
 {
+
+    public function show($id)
+    {
+        return Order::find($id);
+    }
 
     public function store($obj)
     {
@@ -24,4 +30,5 @@ class OrderRepository implements OrderRepositoryInterface
     {
         return $obj->delete();
     }
+
 }

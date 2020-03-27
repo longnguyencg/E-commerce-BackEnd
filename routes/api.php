@@ -66,7 +66,16 @@ Route::middleware(['sessions'])->prefix('/checkout')->group(function () {
     Route::get('/{id}', 'CheckOutController@show');
     Route::post('', 'CheckOutController@add');
     Route::patch('', 'CheckOutController@update');
+    Route::patch('/{id}/status', 'CheckOutController@updateStatus');
     Route::delete('/{id}', 'CheckOutController@destroy');
+});
+
+Route::get('/notifications', function () {
+    Route::get('', 'NotificationController@index');
+    Route::post('', 'NotificationController@add');
+    Route::get('/seenAll', 'NotificationController@seenAll');
+    Route::delete('/{id}', 'NotificationController@destroy');
+    Route::delete('/', 'NotificationController@destroyAll');
 });
 
 Route::post('/register','UserController@register');

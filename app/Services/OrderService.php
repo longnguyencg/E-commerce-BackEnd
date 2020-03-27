@@ -17,6 +17,11 @@ class OrderService implements OrderServiceInterface
         $this->orderRepo = $orderRepo;
     }
 
+    public function show($id)
+    {
+        return $this->orderRepo->show($id);
+    }
+
     public function store($totalPrice, $customer_id)
     {
         $order = new Order();
@@ -34,5 +39,15 @@ class OrderService implements OrderServiceInterface
     public function destroy($id)
     {
         // TODO: Implement destroy() method.
+    }
+
+    public function updateStatus($request, $id)
+    {
+        if ($order = $this->orderRepo->show($id)) {
+            $order->status = $request->status;
+            return $this->orderRepo->update($order);
+        }
+
+        return false;
     }
 }

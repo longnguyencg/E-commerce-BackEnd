@@ -14,12 +14,5 @@ class Category extends Model
         return $this->belongsToMany('App\Product')->withTimestamps();
     }
 
-//    public static function boot() {
-//        parent::boot();
-//
-//        static::deleting(function($category) { // before delete() method call this
-//            $category->products()->delete();
-//            // do the rest of the cleanup...
-//        });
-//    }
+
 }
