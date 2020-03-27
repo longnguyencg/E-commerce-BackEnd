@@ -40,6 +40,7 @@ Route::middleware(['sessions'])->prefix('/cart')->group(function () {
 
 Route::prefix('/comments')->group(function () {
     Route::get('', 'CommentController@index');
+    Route::get('/{id_product}', 'CommentController@getCommentProduct');
     Route::post('', 'CommentController@add');
     Route::patch('', 'CommentController@update');
 //    Route::delete('/', 'CommentController@destroy');
@@ -48,7 +49,8 @@ Route::prefix('/comments')->group(function () {
 
 Route::prefix('/votes')->group(function () {
    Route::get('', 'VoteController@index');
-   Route::get('/{user_id}', 'VoteController@getVoteByUser');
+   Route::get('/users/{user_id}', 'VoteController@getVoteByUser');
+   Route::get('/products/{product_id}', 'VoteController@getVoteByProduct');
    Route::patch('', 'VoteController@update');
    Route::post('', 'VoteController@add');
 });

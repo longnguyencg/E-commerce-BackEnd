@@ -30,6 +30,11 @@ class CommentService implements CommentServiceInterface
         $this->cmtRepo->store($cmt);
     }
 
+    public function getCommentProduct($productId)
+    {
+        return $this->cmtRepo->getCommentProduct($productId);
+    }
+
     public function update($request, $id)
     {
         $cmt = Comment::find($id);

@@ -33,6 +33,11 @@ class VoteService implements VoteServiceInterface
         return $this->voteRepo->getVoteByUSer($id);
     }
 
+    public function getVoteByProduct($product_id)
+    {
+        return $this->voteRepo->getVoteByProduct($product_id);
+    }
+
     public function update($request, $id)
     {
         $vote = Vote::find($id);

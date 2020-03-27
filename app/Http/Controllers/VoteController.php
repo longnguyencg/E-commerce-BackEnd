@@ -26,6 +26,11 @@ class VoteController extends Controller
         return $this->voteService->getVoteByUser($id);
     }
 
+    public function getVoteByProduct($product_id)
+    {
+        return $this->voteService->getVoteByProduct($product_id);
+    }
+
     public function add(AddVoteRequest $request)
     {
         $this->voteService->store($request);
