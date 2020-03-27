@@ -4,6 +4,7 @@
 namespace App\Http\Controllers;
 
 
+use App\Category;
 use App\Http\Requests\StoreProductRequest;
 use App\Interfaces\ProductServiceInterface;
 use Illuminate\Http\Request;
@@ -26,7 +27,7 @@ class ProductController
     public function show($id)
     {
         if ($product = $this->productService->show($id)) {
-            return array('product' => $product, 'categories' => $product->categories);
+            return array('product' => $product, 'categories' => $product->categories());
         }
 
         return response()->json(['error' => 'No data found'], 404);
