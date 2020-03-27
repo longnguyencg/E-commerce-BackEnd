@@ -14,9 +14,14 @@ class CommentRepository implements CommentRepositoryInterface
     {
     }
 
+    public function getCommentProduct($productId)
+    {
+        return Comment::where('product_id', '=', "$productId")->orderBy('created_at','DESC')->get();
+    }
+
     public function getAll()
     {
-        return Comment::all();
+        return Comment::orderBy('created_at', 'DESC')->get();
     }
 
     public function store($obj)

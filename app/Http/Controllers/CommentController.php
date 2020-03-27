@@ -23,6 +23,11 @@ class CommentController extends Controller
         return $this->cmtService->getAll();
     }
 
+    public function getCommentProduct($id_product)
+    {
+        return $this->cmtService->getCommentProduct($id_product);
+    }
+
     public function add(AddCommentRequest $request)
     {
         $this->cmtService->store($request);

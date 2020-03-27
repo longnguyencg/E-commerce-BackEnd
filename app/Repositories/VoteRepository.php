@@ -14,13 +14,19 @@ class VoteRepository implements VoteRepositoryInterface
     {
         $count = Vote::count();
         $voteRate = $count > 0 ? Vote::sum('amount') / $count : 0;
-        dd(['count'=>$count, 'voteRate'=>$voteRate]);
-        return ;
+        return array((['count'=>$count, 'voteRate'=>$voteRate]));
     }
 
     public function getVoteByUser($id)
     {
         return Vote::where('user_id','=',"$id")->first();
+    }
+
+    public function getVoteByProduct($product_id)
+    {
+        $count = Vote::where('product_id','=',"$product_id")->count();
+        $voteRate = $count > 0 ? Vote::sum('amount') / $count : 0;
+        return array((['count'=>$count, 'voteRate'=>$voteRate]));
     }
 
     public function store($obj)
