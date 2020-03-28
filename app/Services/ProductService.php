@@ -40,11 +40,13 @@ class ProductService implements ProductServiceInterface
         $product->fill($request->all());
         $this->productRepo->store($product);
         $product->categories()->attach($request->categories);
-        foreach ($request->images as $name) {
-            $image = new ProductImage();
-            $image->name = $name;
-            $image->product_id = $product->id;
-            $image->save();
+        if ($request->images) {
+            foreach ($request->images as $name) {
+                $image = new ProductImage();
+                $image->name = $name;
+                $image->product_id = $product->id;
+                $image->save();
+            }
         }
     }
 
@@ -63,11 +65,13 @@ class ProductService implements ProductServiceInterface
         $product->update($request->all());
         $this->productRepo->update($product);
         $images = $product->productImages()->delete();
-        foreach ($request->images as $name) {
-            $image = new ProductImage();
-            $image->name = $name;
-            $image->product_id = $product->id;
-            $image->save();
+        if ($request->images) {
+            foreach ($request->images as $name) {
+                $image = new ProductImage();
+                $image->name = $name;
+                $image->product_id = $product->id;
+                $image->save();
+            }
         }
 
         return $product->categories()->sync($request->categories);
