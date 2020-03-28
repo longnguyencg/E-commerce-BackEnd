@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\AddCommentRequest;
 use App\Http\Requests\UpdateCartRequest;
 use App\Http\Requests\UpdateCommentRequest;
+use App\Http\Service\UserService;
 use App\Interfaces\CommentServiceInterface;
 use Illuminate\Http\Request;
 

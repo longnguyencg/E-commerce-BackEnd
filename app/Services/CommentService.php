@@ -13,10 +13,12 @@ use http\Env\Request;
 class CommentService implements CommentServiceInterface
 {
     protected $cmtRepo;
+    protected $userService;
 
-    public function __construct(CommentRepositoryInterface $commentRepo)
+    public function __construct(CommentRepositoryInterface $commentRepo, UserService $userService)
     {
         $this->cmtRepo = $commentRepo;
+        $this->userService = $userService;
     }
 
     public function getAll()
@@ -32,7 +34,18 @@ class CommentService implements CommentServiceInterface
 
     public function getCommentProduct($productId)
     {
-        return $this->cmtRepo->getCommentProduct($productId);
+        $cmts = $this->cmtRepo->getCommentProduct($productId);
+        $comments = [];
+        foreach ($cmts as $cmt) {
+            $comment = new \stdClass();
+            $comment->product_id = $cmt->product_id;
+            $comment->user = $this->userService->findById($cmt->user_id);
+            $comment->content = $cmt->content;
+            $comment->created_at = $cmt->created_at;
+            $comment->updated_at = $cmt->updated_at;
+            array_push($comments,$comment);
+    }
+        return $comments;
     }
 
     public function update($request, $id)
