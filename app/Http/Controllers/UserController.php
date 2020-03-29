@@ -19,4 +19,7 @@ class UserController extends Controller
         $user = $this->userService->findById($id);
         return response()->json($user);
     }
+    public function update(Request $request) {
+       return $this->userService->update($request,$request->id);
+    }
 }
