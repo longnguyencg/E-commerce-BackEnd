@@ -28,11 +28,11 @@ class DetailUserRequest extends FormRequest
     public function rules()
     {
         return [
-            'user_id' => 'required|unique:detail_users,user_id|exists:users,id',
+            'user_id' => 'required',
             'name' => 'required|min:2',
             'phone' => 'required',
             'address' => 'required',
-            'email' => 'required|unique:detail_users,email|email'
+            'email' => 'required'
         ];
     }
 
