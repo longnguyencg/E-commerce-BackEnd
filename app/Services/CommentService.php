@@ -38,6 +38,7 @@ class CommentService implements CommentServiceInterface
         $comments = [];
         foreach ($cmts as $cmt) {
             $comment = new \stdClass();
+            $comment->id = $cmt->id;
             $comment->product_id = $cmt->product_id;
             $comment->user = $this->userService->findById($cmt->user_id);
             $comment->content = $cmt->content;
