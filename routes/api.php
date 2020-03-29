@@ -20,6 +20,9 @@ Route::get('/logout','ApiLoginController@logout');
 Route::post('/login-social', 'SocialAuthController@authorizeSocial');
 Route::prefix('/products')->group(function () {
     Route::get('/', 'ProductController@index');
+    Route::get('/newest', 'ProductController@aNewest');
+    Route::post('/search', 'ProductController@search');
+    Route::post('/filter', 'ProductController@filter');
     Route::get('/{id}', 'ProductController@show');
     Route::post('/', 'ProductController@store');
     Route::put('/{id}', 'ProductController@update');
@@ -57,22 +60,22 @@ Route::prefix('/votes')->group(function () {
 
 Route::prefix('/categories')->group(function () {
     Route::get('', 'CategoryController@index');
-    Route::get('/{id}', 'CategoryController@show');
+    Route::get('/{order_id}', 'CategoryController@show');
     Route::post('', 'CategoryController@add');
     Route::patch('', 'CategoryController@update');
     Route::delete('/{id}', 'CategoryController@destroy');
 });
 
-Route::middleware(['sessions'])->prefix('/checkout')->group(function () {
+Route::middleware(['session'])->prefix('/check-out')->group(function () {
     Route::get('', 'CheckOutController@index');
     Route::get('/{id}', 'CheckOutController@show');
-    Route::post('', 'CheckOutController@add');
+    Route::post('', 'CustomerController@add');
     Route::patch('', 'CheckOutController@update');
     Route::patch('/{id}/status', 'CheckOutController@updateStatus');
     Route::delete('/{id}', 'CheckOutController@destroy');
 });
 
-Route::get('/notifications', function () {
+Route::prefix('/notifications')->group(function () {
     Route::get('', 'NotificationController@index');
     Route::post('', 'NotificationController@add');
     Route::get('/seenAll', 'NotificationController@seenAll');
@@ -86,6 +89,8 @@ Route::prefix('/users')->group(function () {
         Route::post('', 'DetailUserController@add');
         Route::put('', 'DetailUserController@update');
     });
+    Route::get('/history/{email}', 'CheckOutController@history');
+    Route::get('/show', 'SocialAuthController@checkUser');
 });
 
 Route::post('/register','UserController@register');

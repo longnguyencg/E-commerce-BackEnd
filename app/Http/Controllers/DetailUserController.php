@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\DetailUser;
 use App\Http\Requests\DetailUserRequest;
+use App\Http\Requests\UpdateDetailUserRequest;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -26,7 +27,7 @@ class DetailUserController extends Controller
         return response()->json(['error' => 'Something wrong']);
     }
 
-    public function update(DetailUserRequest $request)
+    public function update(UpdateDetailUserRequest $request)
     {
         $detailUser = DetailUser::where('user_id','=',"$request->user_id")->first();
         $detailUser->update($request->all());

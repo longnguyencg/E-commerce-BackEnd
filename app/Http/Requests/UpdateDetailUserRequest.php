@@ -8,7 +8,7 @@ use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Validation\ValidationException;
 
-class StoreOrUpdateDetailUserRequest extends FormRequest
+class UpdateDetailUserRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -28,10 +28,11 @@ class StoreOrUpdateDetailUserRequest extends FormRequest
     public function rules()
     {
         return [
+            'user_id' => 'required|exists:detail_users,user_id',
             'name' => 'required|min:2',
             'phone' => 'required',
             'address' => 'required',
-            'email' => 'required|unique:customers,email|email'
+            'email' => 'required|email'
         ];
     }
 

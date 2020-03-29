@@ -23,6 +23,13 @@ class SocialAuthController extends Controller
 
     public function authorizeSocial(Request $request)
     {
-         return SocialAccountService::login($request);
+         $user = SocialAccountService::login($request);
+         auth()->login($user);
+         return $user;
+    }
+
+    public function checkUser()
+    {
+        dd(auth()->user());
     }
 }

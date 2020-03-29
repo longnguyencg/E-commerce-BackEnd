@@ -28,4 +28,5 @@ class Product extends Model
             // do the rest of the cleanup...
         });
     }
+
 }

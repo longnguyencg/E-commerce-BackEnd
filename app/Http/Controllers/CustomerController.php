@@ -16,6 +16,7 @@ class CustomerController extends Controller
     }
     public function add($request)
     {
+        dd('a');
         return $this->customerService->store($request);
     }
 }
