@@ -7,6 +7,7 @@ namespace App\Http\Controllers;
 use App\Category;
 use App\Http\Requests\StoreProductRequest;
 use App\Interfaces\ProductServiceInterface;
+use App\Product;
 use Illuminate\Http\Request;
 
 class ProductController
@@ -22,6 +23,21 @@ class ProductController
     {
         $products =$this->productService->getAll();
         return response()->json($products);
+    }
+
+    public function aNewest()
+    {
+        return Product::all()->last();
+    }
+
+    public function search(Request $request)
+    {
+        return $this->productService->search($request->keyword);
+    }
+
+    public function filter(Request $request)
+    {
+        return $this->productService->filter($request);
     }
 
     public function show($id)

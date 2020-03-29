@@ -5,20 +5,40 @@ namespace App\Http\Controllers;
 
 
 use App\Cart;
+use App\Customer;
 use App\Http\Requests\SaveOrderRequest;
 use App\Interfaces\ControllerInterface;
+use App\Interfaces\CustomerServiceInterface;
+use App\Interfaces\OrderServiceInterface;
+use App\Order;
+use App\Services\CustomerService;
+use App\User;
 
 class CheckOutController
 {
 
-    protected $orderCtrl;
-    protected $customerCtrl;
+    protected $orderSvc;
+    protected $customerSvc;
 
-    public function __construct(OrderController $orderController,
-                                CustomerController $customerController)
+    public function __construct(CustomerServiceInterface $customerService)
     {
-        $this->orderCtrl = $orderController;
-        $this->customerCtrl = $customerController;
+//        $this->orderSvc = $orderService;
+        $this->customerSvc = $customerService;
+    }
+
+    public function getTimeOrders()
+    {
+
+    }
+
+    public function getOrderByTime()
+    {
+
+    }
+
+    public function show($order_id)
+    {
+        return;
     }
 
     public function index()
@@ -28,8 +48,9 @@ class CheckOutController
 
     public function add(SaveOrderRequest $request)
     {
-        $customer_id = $this->customerCtrl->add($request);
-        $this->orderCtrl->add($request, $customer_id);
+        dd('a');
+        $customer_id = $this->customerSvc->store($request);
+//        $this->orderSvc->store($request, $customer_id);
 
         return response()->json(['success' => 'Ordered successful'],200);
     }
@@ -42,5 +63,14 @@ class CheckOutController
     public function destroy($id)
     {
         // TODO: Implement destroy() method.
+    }
+
+    public function history($email)
+    {
+        if ($customer  = Customer::where('email','=',"$email")->first()) {
+            return Order::where('customer_id','=', $customer->id);
+        }
+
+        return response()->json(['error' => 'No user exists'],404);
     }
 }

@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Interfaces\OrderDetailControllerInterface;
 use App\OrderDetail;
 use Illuminate\Http\Request;
 
-class OrderDetailController extends Controller
+class  OrderDetailController extends Controller implements OrderDetailControllerInterface
 {
     public function add($cart, $order_id)
     {

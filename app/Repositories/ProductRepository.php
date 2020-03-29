@@ -16,6 +16,16 @@ class ProductRepository implements ProductRepositoryInterface
         return Product::all();
     }
 
+    public function search($keyword)
+    {
+        return Product::where('name','like',"%$keyword%")->get();
+    }
+
+    public function filter($filters)
+    {
+
+    }
+
     public function findById($id)
     {
         return Product::find($id);

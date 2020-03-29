@@ -4,11 +4,13 @@
 namespace App\Services;
 
 
+use App\Category;
 use App\Interfaces\ProductRepositoryInterface;
 use App\Interfaces\ProductServiceInterface;
 use App\Product;
 use App\ProductImage;
 use App\Repositories\ProductRepository;
+use Illuminate\Support\Facades\DB;
 
 class ProductService implements ProductServiceInterface
 {
@@ -46,6 +48,32 @@ class ProductService implements ProductServiceInterface
             $image->product_id = $product->id;
             $image->save();
         }
+    }
+
+    public function search($keyword)
+    {
+        return $this->productRepo->search($keyword);
+    }
+
+    public function filter($request)
+    {
+        $where = [];
+        foreach($request->categories as $category_id) {
+            array_push($where, array('category_product.category_id','=',"$category_id"));
+        }
+        $sort = $request->sort ? $request->sort : 'ASC';
+        $price = $request->price ? $request->price : 'DESC';
+
+
+        $products = DB::table('products')
+            ->join('category_product', 'products.id', '=', 'product_id')
+            ->select('products.*')
+            ->whereIn('category_product.category_id',$request->categories)
+            ->groupBy('products.id')
+            ->orderBy('price', $price)
+            ->orderBy('created_at', $sort)
+            ->get();
+        return $products;
     }
 
     public function show($id)
