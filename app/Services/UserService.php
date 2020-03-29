@@ -29,7 +29,13 @@ class UserService implements ServiceInterface
 
     public function update($request, $id)
     {
-        // TODO: Implement update() method.
+        $user = $this->userRepo->findById($id);
+        if (Hash::check($request->oldPassword,$user->password)){
+            $user->password = Hash::make($request->newPassword);
+            $this->userRepo->store($user);
+            return response()->json('Successfully');
+        }
+        else return response()->json('Error');
     }
 
     public function destroy($id)

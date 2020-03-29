@@ -90,4 +90,5 @@ Route::prefix('/users')->group(function () {
 
 Route::post('/register','UserController@register');
 Route::get('/{id}','UserController@findById');
+Route::put('/user','UserController@update');
 
