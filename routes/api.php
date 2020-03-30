@@ -65,13 +65,14 @@ Route::prefix('/categories')->group(function () {
     Route::patch('', 'CategoryController@update');
     Route::delete('/{id}', 'CategoryController@destroy');
 });
-
-Route::middleware(['session'])->prefix('/check-out')->group(function () {
-    Route::get('', 'CheckOutController@index');
+//middleware(['session'])->
+Route::prefix('/check-out')->group(function () {
+    Route::get('', 'RedirectOrderController@index');
     Route::get('/{id}', 'CheckOutController@show');
-    Route::post('', 'CustomerController@add');
+    Route::get('/order-date', 'CheckOutController@getTimeOrders');
+    Route::post('/order-date', 'CheckOutController@getOrdersByTime');
+    Route::post('', 'CheckOutController@add');
     Route::patch('', 'CheckOutController@update');
-    Route::patch('/{id}/status', 'CheckOutController@updateStatus');
     Route::delete('/{id}', 'CheckOutController@destroy');
 });
 
