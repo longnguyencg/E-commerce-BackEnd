@@ -19,27 +19,28 @@ class CheckOutController extends Controller
 
     public function add(SaveOrderRequest $request)
     {
-        $cart = new Cart($request->session()->get('cart'));
-        if (!Customer::where('email','=',$request->email)) {
+        if (!$customer = Customer::where('email','=',$request->email)->first()) {
             $customer = Customer::create($request->all());
+            $customer->save();
         }
-        $customer->save();
 
         $order = new Order();
-        $order->status = $request->status;
-        $order->comment = $request->comment;
-        $order->customer_id = $request->customer_id;
-        $order->totalPrice = $cart->totalPrice;
+        $order->customer_id = $customer->id;
+        $order->total_price = 0;
         $order->save();
-
-        foreach ($cart->listItem as $item) {
+        $sum = 0;
+        foreach ($request->cart as $item) {
             $order_detail = new OrderDetail();
+            $product = Product::find($item[0]);
             $order_detail->order_id = $order->id;
-            $order_detail->product_id = $item->product->id;
-            $order_detail->quantity = $item->quantity;
-            $order_detail->price = $item->product->price;
+            $order_detail->product_id = $item[0];
+            $order_detail->quantity = $item[1];
+            $order_detail->price = $product->price;
             $order_detail->save();
+            $sum += $order_detail->quantity * $order_detail->price;
         }
+        $order->total_price = $sum;
+        $order->save();
     }
 
     public function update(Request $request)
