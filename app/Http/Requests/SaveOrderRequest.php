@@ -31,7 +31,7 @@ class SaveOrderRequest extends FormRequest
             'name' => 'required|min:2',
             'phone' => 'required',
             'address' => 'required',
-            'email' => 'required|unique:customers,email|email'
+            'email' => 'required|email'
         ];
     }
 
